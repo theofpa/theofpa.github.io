@@ -1,17 +1,94 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[My Octopress Blog]]></title>
+  <title><![CDATA[theofpa octopress blog]]></title>
   <link href="http://theofpa.github.io/atom.xml" rel="self"/>
   <link href="http://theofpa.github.io/"/>
-  <updated>2013-12-07T14:46:17+01:00</updated>
+  <updated>2013-12-08T13:30:46+01:00</updated>
   <id>http://theofpa.github.io/</id>
   <author>
-    <name><![CDATA[Your Name]]></name>
+    <name><![CDATA[Theofilos P]]></name>
     
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Google cloud compute engine and chef]]></title>
+    <link href="http://theofpa.github.io/blog/2013/12/07/google-cloud-compute-engine-and-chef/"/>
+    <updated>2013-12-07T14:50:55+01:00</updated>
+    <id>http://theofpa.github.io/blog/2013/12/07/google-cloud-compute-engine-and-chef</id>
+    <content type="html"><![CDATA[<p>Opscode knife-google plugin allows you to communicate with the GCE via the knife command.</p>
+
+<p>Assuming that the VM is already spawned:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>theofpa@kedr ~ $ knife google server list -Z us-central1-a
+</span><span class='line'>Name    Type      Image  Public IP       Private IP    Disks   Zone           Status
+</span><span class='line'>delta1  f1-micro         162.222.178.27  10.240.73.88  delta1  us-central1-a  running</span></code></pre></td></tr></table></div></figure>
+
+
+<p>I&rsquo;ve registered this IP in one of my DNS zones I maintain using Cloudflare, in order to have a beautiful fqdn.</p>
+
+<p>Bootstrap it:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>theofpa@kedr ~ $ knife bootstrap delta1.bigdata.gr -i .ssh/google_compute_engine -x theofpa --sudo
+</span><span class='line'>Bootstrapping Chef on delta1.bigdata.gr
+</span><span class='line'>delta1.bigdata.gr Starting Chef Client, version 11.4.4
+</span><span class='line'>...</span></code></pre></td></tr></table></div></figure>
+
+
+<p>And add any of your favourite cookbooks:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>theofpa@kedr ~ $ knife node run_list add delta1.bigdata.gr 'recipe[git], recipe[squid]'
+</span><span class='line'>delta1.bigdata.gr:
+</span><span class='line'>  run_list:
+</span><span class='line'>    recipe[git]
+</span><span class='line'>    recipe[squid]
+</span><span class='line'>theofpa@kedr ~ $ knife ssh name:delta1.bigdata.gr "sudo chef-client" -i ~/.ssh/google_compute_engine
+</span><span class='line'>delta1.bigdata.gr Starting Chef Client, version 11.4.4
+</span><span class='line'>delta1.bigdata.gr resolving cookbooks for run list: ["git", "squid"]
+</span><span class='line'>delta1.bigdata.gr Synchronizing Cookbooks:
+</span><span class='line'>delta1.bigdata.gr   - git
+</span><span class='line'>delta1.bigdata.gr   - dmg
+</span><span class='line'>delta1.bigdata.gr   - build-essential
+</span><span class='line'>delta1.bigdata.gr   - yum
+</span><span class='line'>delta1.bigdata.gr   - windows
+</span><span class='line'>delta1.bigdata.gr   - chef_handler
+</span><span class='line'>delta1.bigdata.gr   - runit
+</span><span class='line'>delta1.bigdata.gr   - squid
+</span><span class='line'>delta1.bigdata.gr Compiling Cookbooks...
+</span><span class='line'>...</span></code></pre></td></tr></table></div></figure>
+
+
+
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[First post]]></title>
