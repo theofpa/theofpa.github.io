@@ -9,10 +9,16 @@
   <meta name="author" content="Theofilos P">
 
   
-  <meta name="description" content="Opscode knife-google plugin allows you to communicate with the GCE via the knife command. Assuming that the VM is already spawned: 1
+  <meta name="description" content="To spawn a new instance in Okeanos make sure you have the kamaki command enabled: 1
 2
 3
-theofpa@kedr &hellip;">
+4
+5
+6
+7
+8
+kedr:~ theofpa$ sudo easy_install pip
+kedr:~ &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -78,6 +84,92 @@ theofpa@kedr &hellip;">
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/12/08/bootstraping-a-vm-in-okeanos-using-chef/">Bootstraping a VM in Okeanos Using Chef</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-12-08T21:29:10+01:00" pubdate data-updated="true">Dec 8<span>th</span>, 2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>To spawn a new instance in Okeanos make sure you have the kamaki command enabled:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>kedr:~ theofpa$ sudo easy_install pip
+</span><span class='line'>kedr:~ theofpa$ sudo pip install virtualenv
+</span><span class='line'>kedr:Development theofpa$ virtualenv kamaki-env
+</span><span class='line'>kedr:Development theofpa$ source kamaki-env/bin/activate
+</span><span class='line'>(kamaki-env)kedr:Development theofpa$ pip install kamaki
+</span><span class='line'>(kamaki-env)kedr:Development theofpa$ pip install ansicolors
+</span><span class='line'>(kamaki-env)kedr:Development theofpa$ pip install mock  
+</span><span class='line'>(kamaki-env)kedr:Development theofpa$ kamaki config set token XXXX== # You can get the token from the Okeanos website</span></code></pre></td></tr></table></div></figure>
+
+
+<p>By using kamaki</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>(kamaki-env)kedr:Development theofpa$ kamaki server list</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Create the VM:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>(kamaki-env)kedr:Development theofpa$ kamaki server create naxos 28 e7a661ad-1536-45f1-8776-aac9b9ff0c1d </span></code></pre></td></tr></table></div></figure>
+
+
+<p>This will create the VM for you, and it will return the hostname/IP and root password in case of Centos. By using knife bootstrap the VM for chef and provision the recipe of your app:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>(kamaki-env)kedr:Development theofpa$ knife bootstrap snf-81529.vm.okeanos.grnet.gr -x root -P rootpass
+</span><span class='line'>(kamaki-env)kedr:Development theofpa$ knife node run_list add snf-81529.vm.okeanos.grnet.gr 'recipe[myapp]'
+</span><span class='line'>(kamaki-env)kedr:Development theofpa$ knife ssh name:snf-81529.vm.okeanos.grnet.gr "sudo chef-client" -x root -P rootpass</span></code></pre></td></tr></table></div></figure>
+
+
+<p>If the VM is ubuntu, it comes with a normal user &amp; sudo right, so in that case the command is slightly different:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>(kamaki-env)➜  Development  kamaki server create lefkas 246 aaafe1de-edfe-4f29-8c3f-50707ccd7d0a
+</span><span class='line'>(kamaki-env)➜  Development  knife bootstrap snf-155685.vm.okeanos.grnet.gr -x user -P userpass --sudo
+</span><span class='line'>(kamaki-env)➜  Development  knife ssh name:snf-155685.vm.okeanos.grnet.gr "sudo chef-client" -x user -P userpass</span></code></pre></td></tr></table></div></figure>
+
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -230,6 +322,10 @@ theofpa@kedr &hellip;">
     <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2013/12/08/bootstraping-a-vm-in-okeanos-using-chef/">Bootstraping a VM in Okeanos using Chef</a>
+      </li>
     
       <li class="post">
         <a href="/blog/2013/12/07/google-cloud-compute-engine-and-chef/">Google cloud compute engine and chef</a>
