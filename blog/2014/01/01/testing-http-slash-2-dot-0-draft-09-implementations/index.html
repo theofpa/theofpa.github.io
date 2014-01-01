@@ -5,14 +5,11 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Google cloud compute engine and chef - theofpa octopress blog</title>
+  <title>Testing HTTP/2.0 draft-09 implementations - theofpa octopress blog</title>
   <meta name="author" content="Theofilos P">
 
   
-  <meta name="description" content="Opscode knife-google plugin allows you to communicate with the GCE via the knife command. Assuming that the VM is already spawned: 1
-2
-3
-theofpa@kedr &hellip;">
+  <meta name="description" content="Tatsuhiro Tsujikawa has implemented an HTTP/2.0 server in C, according to draft-09 of HTTPdis. In Ubuntu, we can bring up the server for testing as &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -21,7 +18,7 @@ theofpa@kedr &hellip;">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://theofpa.github.io/blog/2013/12/07/google-cloud-compute-engine-and-chef/">
+  <link rel="canonical" href="http://theofpa.github.io/blog/2014/01/01/testing-http-slash-2-dot-0-draft-09-implementations/">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
    <link href="/stylesheets/data-table.css" media="screen, projection" rel="stylesheet" type="text/css" />
@@ -81,7 +78,7 @@ theofpa@kedr &hellip;">
   
   <header>
     
-      <h1 class="entry-title">Google Cloud Compute Engine and Chef</h1>
+      <h1 class="entry-title">Testing HTTP/2.0 Draft-09 Implementations</h1>
     
     
       <p class="meta">
@@ -97,40 +94,14 @@ theofpa@kedr &hellip;">
   
 
 
-<time datetime="2013-12-07T14:50:55+01:00" pubdate data-updated="true">Dec 7<span>th</span>, 2013</time>
+<time datetime="2014-01-01T20:08:43+01:00" pubdate data-updated="true">Jan 1<span>st</span>, 2014</time>
         
       </p>
     
   </header>
 
 
-<div class="entry-content"><p>Opscode knife-google plugin allows you to communicate with the GCE via the knife command.</p>
-
-<p>Assuming that the VM is already spawned:</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>theofpa@kedr ~ $ knife google server list -Z us-central1-a
-</span><span class='line'>Name    Type      Image  Public IP       Private IP    Disks   Zone           Status
-</span><span class='line'>delta1  f1-micro         162.222.178.27  10.240.73.88  delta1  us-central1-a  running</span></code></pre></td></tr></table></div></figure>
-
-
-<p>I&rsquo;ve registered this IP in one of my DNS zones I maintain using Cloudflare, in order to have a beautiful fqdn.</p>
-
-<p>Bootstrap it:</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>theofpa@kedr ~ $ knife bootstrap delta1.bigdata.gr -i .ssh/google_compute_engine -x theofpa --sudo
-</span><span class='line'>Bootstrapping Chef on delta1.bigdata.gr
-</span><span class='line'>delta1.bigdata.gr Starting Chef Client, version 11.4.4
-</span><span class='line'>...</span></code></pre></td></tr></table></div></figure>
-
-
-<p>And add any of your favourite cookbooks:</p>
+<div class="entry-content"><p><a href="https://github.com/tatsuhiro-t">Tatsuhiro Tsujikawa</a> has implemented an HTTP/2.0 server in C, according to draft-09 of HTTPdis. In Ubuntu, we can bring up the server for testing as shown below:</p>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
@@ -144,35 +115,41 @@ theofpa@kedr &hellip;">
 <span class='line-number'>10</span>
 <span class='line-number'>11</span>
 <span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>theofpa@kedr ~ $ knife node run_list add delta1.bigdata.gr 'recipe[git], recipe[squid]'
-</span><span class='line'>delta1.bigdata.gr:
-</span><span class='line'>  run_list:
-</span><span class='line'>    recipe[git]
-</span><span class='line'>    recipe[squid]
-</span><span class='line'>theofpa@kedr ~ $ knife ssh name:delta1.bigdata.gr "sudo chef-client" -i ~/.ssh/google_compute_engine
-</span><span class='line'>delta1.bigdata.gr Starting Chef Client, version 11.4.4
-</span><span class='line'>delta1.bigdata.gr resolving cookbooks for run list: ["git", "squid"]
-</span><span class='line'>delta1.bigdata.gr Synchronizing Cookbooks:
-</span><span class='line'>delta1.bigdata.gr   - git
-</span><span class='line'>delta1.bigdata.gr   - dmg
-</span><span class='line'>delta1.bigdata.gr   - build-essential
-</span><span class='line'>delta1.bigdata.gr   - yum
-</span><span class='line'>delta1.bigdata.gr   - windows
-</span><span class='line'>delta1.bigdata.gr   - chef_handler
-</span><span class='line'>delta1.bigdata.gr   - runit
-</span><span class='line'>delta1.bigdata.gr   - squid
-</span><span class='line'>delta1.bigdata.gr Compiling Cookbooks...
-</span><span class='line'>...</span></code></pre></td></tr></table></div></figure>
+</pre></td><td class='code'><pre><code class=''><span class='line'>theofpa@snf-155685:~$ git clone https://github.com/tatsuhiro-t/nghttp2.git
+</span><span class='line'>theofpa@snf-155685:~$ cd nghttp2/
+</span><span class='line'>theofpa@snf-155685:~/nghttp2$ sudo apt-get install libevent-dev openssl
+</span><span class='line'>theofpa@snf-155685:~/nghttp2$ autoreconf -i
+</span><span class='line'>theofpa@snf-155685:~/nghttp2$ automake
+</span><span class='line'>theofpa@snf-155685:~/nghttp2$ autoconf
+</span><span class='line'>theofpa@snf-155685:~/nghttp2$ ./configure
+</span><span class='line'>theofpa@snf-155685:~/nghttp2$ make
+</span><span class='line'>theofpa@snf-155685:~/nghttp2$ openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout mysitename.key -out mysitename.crt
+</span><span class='line'>theofpa@snf-155685:~/nghttp2$ mkdir htdocs
+</span><span class='line'>theofpa@snf-155685:~/nghttp2$ echo "&lt;html&gt;&lt;body&gt;Congrats, this is the content served through HTTP/2.0&lt;/body&gt;&lt;/html&gt;" &gt; htdocs/index.html
+</span><span class='line'>theofpa@snf-155685:~/nghttp2$ sudo src/nghttpd -v -d htdocs 443 mysitename.key mysitename.crt</span></code></pre></td></tr></table></div></figure>
 
 
+<p>Register DNS for IPv4 &amp; IPv6:</p>
 
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>http2.bigdata.gr  IN  A     83.212.117.122
+</span><span class='line'>http2.bigdata.gr  IN  AAAA  2001:648:2ffc:1225:a800:7ff:fedd:3064</span></code></pre></td></tr></table></div></figure>
+
+
+<p>And we can test the web server from our MacOSX with an HTTP/2.0 client, like the node-http2 impleneted by <a href="https://github.com/molnarg">Gábor Molnár</a> in nodejs:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>git clone https://github.com/molnarg/node-http2.git
+</span><span class='line'>npm install
+</span><span class='line'>node ./example/client.js 'https://http2.bigdata.gr/'
+</span><span class='line'>&lt;html&gt;&lt;body&gt;Congrats, this is the content served through HTTP/2.0&lt;/body&gt;&lt;/html&gt;</span></code></pre></td></tr></table></div></figure>
+
+
+<p><a href="https://github.com/mnot">Mark Nottingham</a> gathered a list of <a href="https://github.com/http2/http2-spec/wiki/Implementations">implementations which support HTTP/2.0 draft-09</a>.</p>
 </div>
 
 
@@ -195,7 +172,7 @@ theofpa@kedr &hellip;">
   
 
 
-<time datetime="2013-12-07T14:50:55+01:00" pubdate data-updated="true">Dec 7<span>th</span>, 2013</time>
+<time datetime="2014-01-01T20:08:43+01:00" pubdate data-updated="true">Jan 1<span>st</span>, 2014</time>
       
 
 
@@ -203,7 +180,7 @@ theofpa@kedr &hellip;">
     
       <div class="sharing">
   
-  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://theofpa.github.io/blog/2013/12/07/google-cloud-compute-engine-and-chef/" data-via="theofpa" data-counturl="http://theofpa.github.io/blog/2013/12/07/google-cloud-compute-engine-and-chef/" >Tweet</a>
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://theofpa.github.io/blog/2014/01/01/testing-http-slash-2-dot-0-draft-09-implementations/" data-via="theofpa" data-counturl="http://theofpa.github.io/blog/2014/01/01/testing-http-slash-2-dot-0-draft-09-implementations/" >Tweet</a>
   
   
   
@@ -212,10 +189,8 @@ theofpa@kedr &hellip;">
     
     <p class="meta">
       
-        <a class="basic-alignment left" href="/blog/2013/12/07/first-post/" title="Previous Post: First post">&laquo; First post</a>
+        <a class="basic-alignment left" href="/blog/2013/12/08/bootstraping-a-vm-in-okeanos-using-chef/" title="Previous Post: Bootstraping a VM in Okeanos using Chef">&laquo; Bootstraping a VM in Okeanos using Chef</a>
       
-      
-        <a class="basic-alignment right" href="/blog/2013/12/08/bootstraping-a-vm-in-okeanos-using-chef/" title="Next Post: Bootstraping a VM in Okeanos using Chef">Bootstraping a VM in Okeanos using Chef &raquo;</a>
       
     </p>
   </footer>

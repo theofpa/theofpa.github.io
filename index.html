@@ -9,16 +9,7 @@
   <meta name="author" content="Theofilos P">
 
   
-  <meta name="description" content="To spawn a new instance in Okeanos make sure you have the kamaki command enabled: 1
-2
-3
-4
-5
-6
-7
-8
-kedr:~ theofpa$ sudo easy_install pip
-kedr:~ &hellip;">
+  <meta name="description" content="Tatsuhiro Tsujikawa has implemented an HTTP/2.0 server in C, according to draft-09 of HTTPdis. In Ubuntu, we can bring up the server for testing as &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -84,6 +75,90 @@ kedr:~ &hellip;">
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/01/01/testing-http-slash-2-dot-0-draft-09-implementations/">Testing HTTP/2.0 Draft-09 Implementations</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-01-01T20:08:43+01:00" pubdate data-updated="true">Jan 1<span>st</span>, 2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p><a href="https://github.com/tatsuhiro-t">Tatsuhiro Tsujikawa</a> has implemented an HTTP/2.0 server in C, according to draft-09 of HTTPdis. In Ubuntu, we can bring up the server for testing as shown below:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>theofpa@snf-155685:~$ git clone https://github.com/tatsuhiro-t/nghttp2.git
+</span><span class='line'>theofpa@snf-155685:~$ cd nghttp2/
+</span><span class='line'>theofpa@snf-155685:~/nghttp2$ sudo apt-get install libevent-dev openssl
+</span><span class='line'>theofpa@snf-155685:~/nghttp2$ autoreconf -i
+</span><span class='line'>theofpa@snf-155685:~/nghttp2$ automake
+</span><span class='line'>theofpa@snf-155685:~/nghttp2$ autoconf
+</span><span class='line'>theofpa@snf-155685:~/nghttp2$ ./configure
+</span><span class='line'>theofpa@snf-155685:~/nghttp2$ make
+</span><span class='line'>theofpa@snf-155685:~/nghttp2$ openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout mysitename.key -out mysitename.crt
+</span><span class='line'>theofpa@snf-155685:~/nghttp2$ mkdir htdocs
+</span><span class='line'>theofpa@snf-155685:~/nghttp2$ echo "&lt;html&gt;&lt;body&gt;Congrats, this is the content served through HTTP/2.0&lt;/body&gt;&lt;/html&gt;" &gt; htdocs/index.html
+</span><span class='line'>theofpa@snf-155685:~/nghttp2$ sudo src/nghttpd -v -d htdocs 443 mysitename.key mysitename.crt</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Register DNS for IPv4 &amp; IPv6:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>http2.bigdata.gr  IN  A     83.212.117.122
+</span><span class='line'>http2.bigdata.gr  IN  AAAA  2001:648:2ffc:1225:a800:7ff:fedd:3064</span></code></pre></td></tr></table></div></figure>
+
+
+<p>And we can test the web server from our MacOSX with an HTTP/2.0 client, like the node-http2 impleneted by <a href="https://github.com/molnarg">Gábor Molnár</a> in nodejs:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>git clone https://github.com/molnarg/node-http2.git
+</span><span class='line'>npm install
+</span><span class='line'>node ./example/client.js 'https://http2.bigdata.gr/'
+</span><span class='line'>&lt;html&gt;&lt;body&gt;Congrats, this is the content served through HTTP/2.0&lt;/body&gt;&lt;/html&gt;</span></code></pre></td></tr></table></div></figure>
+
+
+<p><a href="https://github.com/mnot">Mark Nottingham</a> gathered a list of <a href="https://github.com/http2/http2-spec/wiki/Implementations">implementations which support HTTP/2.0 draft-09</a>.</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -324,6 +399,10 @@ kedr:~ &hellip;">
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2014/01/01/testing-http-slash-2-dot-0-draft-09-implementations/">Testing HTTP/2.0 draft-09 implementations</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2013/12/08/bootstraping-a-vm-in-okeanos-using-chef/">Bootstraping a VM in Okeanos using Chef</a>
       </li>
     
@@ -377,7 +456,7 @@ kedr:~ &hellip;">
     </div>
   </div>
   <footer role="contentinfo"><p>
-  Copyright &copy; 2013 - Theofilos P -
+  Copyright &copy; 2014 - Theofilos P -
   <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
 </p>
 
