@@ -4,7 +4,7 @@
   <title><![CDATA[theofpa octopress blog]]></title>
   <link href="http://theofpa.github.io/atom.xml" rel="self"/>
   <link href="http://theofpa.github.io/"/>
-  <updated>2014-01-01T20:22:09+01:00</updated>
+  <updated>2014-01-01T20:29:16+01:00</updated>
   <id>http://theofpa.github.io/</id>
   <author>
     <name><![CDATA[Theofilos P]]></name>
@@ -54,7 +54,7 @@
 </span><span class='line'>http2.bigdata.gr  IN  AAAA  2001:648:2ffc:1225:a800:7ff:fedd:3064</span></code></pre></td></tr></table></div></figure>
 
 
-<p>And we can test the web server from our MacOSX with an HTTP/2.0 client, like the node-http2 impleneted by <a href="https://github.com/molnarg">Gábor Molnár</a> in nodejs:</p>
+<p>And we can test the web server from our MacOSX with an HTTP/2.0 client, like the node-http2 impleneted by <a href="http://gabor.molnar.es">Gábor Molnár</a> in nodejs as a Google Summer of Code project:</p>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
