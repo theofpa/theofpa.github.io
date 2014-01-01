@@ -4,7 +4,7 @@
   <title><![CDATA[theofpa octopress blog]]></title>
   <link href="http://theofpa.github.io/atom.xml" rel="self"/>
   <link href="http://theofpa.github.io/"/>
-  <updated>2014-01-01T20:19:31+01:00</updated>
+  <updated>2014-01-01T20:22:09+01:00</updated>
   <id>http://theofpa.github.io/</id>
   <author>
     <name><![CDATA[Theofilos P]]></name>
@@ -60,9 +60,9 @@
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>git clone https://github.com/molnarg/node-http2.git
-</span><span class='line'>npm install
-</span><span class='line'>node ./example/client.js 'https://http2.bigdata.gr/'
+</pre></td><td class='code'><pre><code class=''><span class='line'>theofpa@kedr ~/Development $ git clone https://github.com/molnarg/node-http2.git
+</span><span class='line'>theofpa@kedr ~/Development/node-http2 (master)$ npm install
+</span><span class='line'>theofpa@kedr ~/Development/node-http2 (master)$ node ./example/client.js 'https://http2.bigdata.gr/'
 </span><span class='line'>&lt;html&gt;&lt;body&gt;Congrats, this is the content served through HTTP/2.0&lt;/body&gt;&lt;/html&gt;</span></code></pre></td></tr></table></div></figure>
 
 
