@@ -1,39 +1,65 @@
-<?xml version='1.0' encoding='UTF-8'?>
-<urlset xmlns='http://www.sitemaps.org/schemas/sitemap/0.9'>
-    <url>
-        <loc>http://theofpa.github.io/blog/2013/12/07/first-post/</loc>
-        <lastmod>2013-12-07T14:46:08+01:00</lastmod>
-    </url>
-    <url>
-        <loc>http://theofpa.github.io/blog/2013/12/07/google-cloud-compute-engine-and-chef/</loc>
-        <lastmod>2013-12-08T13:30:05+01:00</lastmod>
-    </url>
-    <url>
-        <loc>
-            http://theofpa.github.io/blog/2013/12/08/bootstraping-a-vm-in-okeanos-using-chef/
-        </loc>
-        <lastmod>2013-12-08T21:37:45+01:00</lastmod>
-    </url>
-    <url>
-        <loc>
-            http://theofpa.github.io/blog/2014/01/01/testing-http-slash-2-dot-0-draft-09-implementations/
-        </loc>
-        <lastmod>2014-01-01T20:29:09+01:00</lastmod>
-    </url>
-    <url>
-        <loc>http://theofpa.github.io/archives/</loc>
-        <lastmod>2014-01-01T20:29:09+01:00</lastmod>
-    </url>
-    <url>
-        <loc>http://theofpa.github.io/blog/archives/</loc>
-        <lastmod>2014-01-01T20:29:09+01:00</lastmod>
-    </url>
-    <url>
-        <loc>http://theofpa.github.io/</loc>
-        <lastmod>2014-01-01T20:29:09+01:00</lastmod>
-    </url>
-    <url>
-        <loc>http://theofpa.github.io/robots.txt</loc>
-        <lastmod>2013-12-07T14:40:58+01:00</lastmod>
-    </url>
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  
+  
+  <url>
+    <loc>http://theofpa.github.io/blog/2014/07/06/coursera-data-science-specialization/</loc>
+    <lastmod>2014-07-06T15:25:24+02:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://theofpa.github.io/blog/2014/01/01/testing-http-slash-2-dot-0-draft-09-implementations/</loc>
+    <lastmod>2014-01-01T20:08:43+01:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://theofpa.github.io/blog/2013/12/08/bootstraping-a-vm-in-okeanos-using-chef/</loc>
+    <lastmod>2013-12-08T21:29:10+01:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://theofpa.github.io/blog/2013/12/07/google-cloud-compute-engine-and-chef/</loc>
+    <lastmod>2013-12-07T14:50:55+01:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://theofpa.github.io/blog/2013/12/07/first-post/</loc>
+    <lastmod>2013-12-07T14:45:52+01:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  
+  <url>
+    <loc>http://theofpa.github.io/blog/archives/</loc>
+    <lastmod>2014-07-06T15:33:18+02:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  
+  <url>
+    <loc>http://theofpa.github.io/</loc>
+    <lastmod>2014-07-06T15:33:18+02:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>
+  
+  <url>
+    <loc>http://theofpa.github.io/archives/</loc>
+    <lastmod>2014-07-06T15:33:18+02:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  
+  <url>
+    <loc>http://theofpa.github.io/datascience-overview/</loc>
+    <lastmod>2014-07-06T15:33:18+02:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  
+  
 </urlset>

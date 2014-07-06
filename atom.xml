@@ -4,14 +4,29 @@
   <title><![CDATA[theofpa octopress blog]]></title>
   <link href="http://theofpa.github.io/atom.xml" rel="self"/>
   <link href="http://theofpa.github.io/"/>
-  <updated>2014-01-01T20:29:16+01:00</updated>
+  <updated>2014-07-06T15:33:18+02:00</updated>
   <id>http://theofpa.github.io/</id>
   <author>
-    <name><![CDATA[Theofilos P]]></name>
+    <name><![CDATA[Your Name]]></name>
     
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Coursera Data Science specialization references]]></title>
+    <link href="http://theofpa.github.io/blog/2014/07/06/coursera-data-science-specialization/"/>
+    <updated>2014-07-06T15:25:24+02:00</updated>
+    <id>http://theofpa.github.io/blog/2014/07/06/coursera-data-science-specialization</id>
+    <content type="html"><![CDATA[<p>I&rsquo;ve recently finished the 9 courses of the Data Science specialization in Coursera, offered by Johns Hopkins University. Prior to that I&rsquo;ve finished the Machine Learning course of Dr.Andew Ng, offered by Stanford University.</p>
+
+<p>While waiting for the Data Science specialization capstone project to be offered, I&rsquo;ve spent some days to review all the materials I&rsquo;ve been through the last 5 months.</p>
+
+<p>I&rsquo;ve extracted a list of references and notes I took during this wonderful journey, which can be found in the <a href="http://theofpa.github.io/datascience-overview/">Data Science Overview</a> page.</p>
+
+<p>My plan is to use it as a bookmarked list of resources for quick reference during the capstone project, and any future work on the field.</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Testing HTTP/2.0 draft-09 implementations]]></title>
@@ -83,11 +98,7 @@
 <span class='line-number'>4</span>
 <span class='line-number'>5</span>
 <span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>kedr:~ theofpa$ sudo easy_install pip
-</span><span class='line'>kedr:~ theofpa$ sudo pip install virtualenv
-</span><span class='line'>kedr:Development theofpa$ virtualenv kamaki-env
+</pre></td><td class='code'><pre><code class=''><span class='line'>kedr:Development theofpa$ virtualenv kamaki-env
 </span><span class='line'>kedr:Development theofpa$ source kamaki-env/bin/activate
 </span><span class='line'>(kamaki-env)kedr:Development theofpa$ pip install kamaki
 </span><span class='line'>(kamaki-env)kedr:Development theofpa$ pip install ansicolors

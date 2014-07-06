@@ -5,14 +5,11 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Google cloud compute engine and chef - theofpa octopress blog</title>
+  <title>Coursera Data Science specialization references - theofpa octopress blog</title>
   <meta name="author" content="Your Name">
 
   
-  <meta name="description" content="Opscode knife-google plugin allows you to communicate with the GCE via the knife command. Assuming that the VM is already spawned: 1
-2
-3
-theofpa@kedr &hellip;">
+  <meta name="description" content="I&rsquo;ve recently finished the 9 courses of the Data Science specialization in Coursera, offered by Johns Hopkins University. Prior to that I&rsquo &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -21,7 +18,7 @@ theofpa@kedr &hellip;">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://theofpa.github.io/blog/2013/12/07/google-cloud-compute-engine-and-chef/">
+  <link rel="canonical" href="http://theofpa.github.io/blog/2014/07/06/coursera-data-science-specialization/">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
    <link href="/stylesheets/data-table.css" media="screen, projection" rel="stylesheet" type="text/css" />
@@ -81,7 +78,7 @@ theofpa@kedr &hellip;">
   
   <header>
     
-      <h1 class="entry-title">Google Cloud Compute Engine and Chef</h1>
+      <h1 class="entry-title">Coursera Data Science Specialization References</h1>
     
     
       <p class="meta">
@@ -97,82 +94,20 @@ theofpa@kedr &hellip;">
   
 
 
-<time datetime="2013-12-07T14:50:55+01:00" pubdate data-updated="true">Dec 7<sup>th</sup>, 2013</time>
+<time datetime="2014-07-06T15:25:24+02:00" pubdate data-updated="true">Jul 6<sup>th</sup>, 2014</time>
         
       </p>
     
   </header>
 
 
-<div class="entry-content"><p>Opscode knife-google plugin allows you to communicate with the GCE via the knife command.</p>
+<div class="entry-content"><p>I&rsquo;ve recently finished the 9 courses of the Data Science specialization in Coursera, offered by Johns Hopkins University. Prior to that I&rsquo;ve finished the Machine Learning course of Dr.Andew Ng, offered by Stanford University.</p>
 
-<p>Assuming that the VM is already spawned:</p>
+<p>While waiting for the Data Science specialization capstone project to be offered, I&rsquo;ve spent some days to review all the materials I&rsquo;ve been through the last 5 months.</p>
 
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>theofpa@kedr ~ $ knife google server list -Z us-central1-a
-</span><span class='line'>Name    Type      Image  Public IP       Private IP    Disks   Zone           Status
-</span><span class='line'>delta1  f1-micro         162.222.178.27  10.240.73.88  delta1  us-central1-a  running</span></code></pre></td></tr></table></div></figure>
+<p>I&rsquo;ve extracted a list of references and notes I took during this wonderful journey, which can be found in the <a href="/datascience-overview/">Data Science Overview</a> page.</p>
 
-
-<p>I&rsquo;ve registered this IP in one of my DNS zones I maintain using Cloudflare, in order to have a beautiful fqdn.</p>
-
-<p>Bootstrap it:</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>theofpa@kedr ~ $ knife bootstrap delta1.bigdata.gr -i .ssh/google_compute_engine -x theofpa --sudo
-</span><span class='line'>Bootstrapping Chef on delta1.bigdata.gr
-</span><span class='line'>delta1.bigdata.gr Starting Chef Client, version 11.4.4
-</span><span class='line'>...</span></code></pre></td></tr></table></div></figure>
-
-
-<p>And add any of your favourite cookbooks:</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>theofpa@kedr ~ $ knife node run_list add delta1.bigdata.gr 'recipe[git], recipe[squid]'
-</span><span class='line'>delta1.bigdata.gr:
-</span><span class='line'>  run_list:
-</span><span class='line'>    recipe[git]
-</span><span class='line'>    recipe[squid]
-</span><span class='line'>theofpa@kedr ~ $ knife ssh name:delta1.bigdata.gr "sudo chef-client" -i ~/.ssh/google_compute_engine
-</span><span class='line'>delta1.bigdata.gr Starting Chef Client, version 11.4.4
-</span><span class='line'>delta1.bigdata.gr resolving cookbooks for run list: ["git", "squid"]
-</span><span class='line'>delta1.bigdata.gr Synchronizing Cookbooks:
-</span><span class='line'>delta1.bigdata.gr   - git
-</span><span class='line'>delta1.bigdata.gr   - dmg
-</span><span class='line'>delta1.bigdata.gr   - build-essential
-</span><span class='line'>delta1.bigdata.gr   - yum
-</span><span class='line'>delta1.bigdata.gr   - windows
-</span><span class='line'>delta1.bigdata.gr   - chef_handler
-</span><span class='line'>delta1.bigdata.gr   - runit
-</span><span class='line'>delta1.bigdata.gr   - squid
-</span><span class='line'>delta1.bigdata.gr Compiling Cookbooks...
-</span><span class='line'>...</span></code></pre></td></tr></table></div></figure>
-
-
-
+<p>My plan is to use it as a bookmarked list of resources for quick reference during the capstone project, and any future work on the field.</p>
 </div>
 
 
@@ -195,7 +130,7 @@ theofpa@kedr &hellip;">
   
 
 
-<time datetime="2013-12-07T14:50:55+01:00" pubdate data-updated="true">Dec 7<sup>th</sup>, 2013</time>
+<time datetime="2014-07-06T15:25:24+02:00" pubdate data-updated="true">Jul 6<sup>th</sup>, 2014</time>
       
 
 
@@ -203,7 +138,7 @@ theofpa@kedr &hellip;">
     
       <div class="sharing">
   
-  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://theofpa.github.io/blog/2013/12/07/google-cloud-compute-engine-and-chef/" data-via="" data-counturl="http://theofpa.github.io/blog/2013/12/07/google-cloud-compute-engine-and-chef/" >Tweet</a>
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://theofpa.github.io/blog/2014/07/06/coursera-data-science-specialization/" data-via="" data-counturl="http://theofpa.github.io/blog/2014/07/06/coursera-data-science-specialization/" >Tweet</a>
   
   
   
@@ -212,10 +147,8 @@ theofpa@kedr &hellip;">
     
     <p class="meta">
       
-        <a class="basic-alignment left" href="/blog/2013/12/07/first-post/" title="Previous Post: First post">&laquo; First post</a>
+        <a class="basic-alignment left" href="/blog/2014/01/01/testing-http-slash-2-dot-0-draft-09-implementations/" title="Previous Post: Testing HTTP/2.0 draft-09 implementations">&laquo; Testing HTTP/2.0 draft-09 implementations</a>
       
-      
-        <a class="basic-alignment right" href="/blog/2013/12/08/bootstraping-a-vm-in-okeanos-using-chef/" title="Next Post: Bootstraping a VM in Okeanos using Chef">Bootstraping a VM in Okeanos using Chef &raquo;</a>
       
     </p>
   </footer>
