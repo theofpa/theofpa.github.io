@@ -4,7 +4,7 @@
   <title><![CDATA[theofpa octopress blog]]></title>
   <link href="http://theofpa.github.io/atom.xml" rel="self"/>
   <link href="http://theofpa.github.io/"/>
-  <updated>2014-08-23T23:31:00+02:00</updated>
+  <updated>2014-08-23T23:33:00+02:00</updated>
   <id>http://theofpa.github.io/</id>
   <author>
     <name><![CDATA[Your Name]]></name>
@@ -16,9 +16,33 @@
   <entry>
     <title type="html"><![CDATA[Elasticsearch store using Hive]]></title>
     <link href="http://theofpa.github.io/blog/2014/08/23/elasticsearch-store-using-hive/"/>
-    <updated>2014-08-23T23:26:49+02:00</updated>
+    <updated>2014-08-23T23:32:23+02:00</updated>
     <id>http://theofpa.github.io/blog/2014/08/23/elasticsearch-store-using-hive</id>
-    <content type="html"><![CDATA[
+    <content type="html"><![CDATA[<p>Although it is described in [<a href="https://github.com/elasticsearch/elasticsearch-hadoop">https://github.com/elasticsearch/elasticsearch-hadoop</a>] to register es-hadoop jar in your Hive script using <code>ADD JAR</code> I was not able to make it work in CDH, even using the <code>ADD JAR hdfs:///user/theofpa/es-hadoop.jar</code> syntax.</p>
+
+<p>It turns out that I had to copy the jar file in <code>/opt/cloudera/parcels/CDH/lib/hadoop/lib/</code> on every node running with the Hive-server2 role and restart Hive.</p>
+
+<p>After doing that, I&rsquo;ve managed to move sample data from Hive to an elasticsearch index like this:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>DROP TABLE IF EXISTS salary;
+</span><span class='line'>CREATE EXTERNAL TABLE salary (
+</span><span class='line'>    description    STRING,
+</span><span class='line'>        salary   BIGINT)
+</span><span class='line'>STORED BY 'org.elasticsearch.hadoop.hive.EsStorageHandler'
+</span><span class='line'>TBLPROPERTIES('es.nodes' = '10.0.0.105:9200', 'es.index.auto.create'='true', 'es.resource' = 'sample/salary');
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'>INSERT OVERWRITE TABLE salary SELECT s.description, s.salary FROM sample_07 s;</span></code></pre></td></tr></table></div></figure>
+
 ]]></content>
   </entry>
   
